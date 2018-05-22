@@ -4,7 +4,6 @@ use DingNotice\DingTalk;
 
 if (!function_exists('ding')){
 
-
     /**
      * @return bool|DingTalk
      */
