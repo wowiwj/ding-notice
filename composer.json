@@ -1,0 +1,30 @@
+{
+    "name": "wangju/ding-notice",
+    "description": "a dingtalk robot message handle for send message",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "DingNotice\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DingNotice\\DingNoticeServiceProvider"
+            ]
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "王举",
+            "email": "35649084@qq.com"
+        }
+    ]
+}
