@@ -1,9 +1,10 @@
 {
     "name": "wangju/ding-notice",
     "description": "a dingtalk robot message handle for send message",
-    "type": "library",
+    "keywords": ["laravel", "ding talk", "ding notice"],
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
         "psr-4": {
@@ -20,7 +21,7 @@
             ]
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
         {
