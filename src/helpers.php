@@ -11,7 +11,7 @@ if (!function_exists('ding')){
 
         $arguments = func_get_args();
 
-        $dingTalk = DingTalk::getInstance();
+        $dingTalk = app(DingTalk::class);
 
         if (empty($arguments)) {
             return $dingTalk;

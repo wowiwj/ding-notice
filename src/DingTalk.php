@@ -6,22 +6,19 @@ class DingTalk
 {
     protected static $instance = null;
 
+    protected $config;
+
     protected $dingTalkService;
 
-    protected function __construct()
+    public function __construct($config)
     {
-        $this->dingTalkService = new DingTalkService();
-    }
-
-    public static function getInstance(){
-        if (self::$instance){
-            return self::$instance;
-        }
-        return self::$instance = new static;
+        $this->config = $config;
+        $this->dingTalkService = new DingTalkService($config);
     }
 
 
     public function text($content = ''){
+        dd('in');
         return $this->dingTalkService
             ->setTextMessage($content)
             ->send();

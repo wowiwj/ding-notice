@@ -14,7 +14,7 @@ class DingNoticeServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/ding.php' => config_path('ding.php'),
+            __DIR__ . '/../config/ding.php' => config_path('ding.php'),
         ]);
     }
 
@@ -25,8 +25,20 @@ class DingNoticeServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerLaravelBindings();
+    }
 
 
+    /**
+     * Register Laravel bindings.
+     *
+     * @return void
+     */
+    protected function registerLaravelBindings()
+    {
+        $this->app->singleton(DingTalk::class, function ($app) {
+            return new DingTalk($app['config']['ding']);
+        });
     }
 
 }

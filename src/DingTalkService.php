@@ -11,6 +11,8 @@ use GuzzleHttp\Client;
 
 class DingTalkService
 {
+
+    protected $config;
     /**
      * @var string
      */
@@ -36,8 +38,9 @@ class DingTalkService
     /**
      * DingTalkService constructor.
      */
-    public function __construct()
+    public function __construct($config)
     {
+        $this->config = $config;
         $this->setTextMessage('null');
         $this->setAccessToken();
     }
@@ -74,7 +77,7 @@ class DingTalkService
      *
      */
     public function setAccessToken(){
-        $this->accessToken = config('ding.token');
+        $this->accessToken = $this->config['token'];
     }
 
     /**
@@ -146,7 +149,7 @@ class DingTalkService
      * @return bool|string
      */
     public function send(){
-        if (! config('ding.enabled')){
+        if (! $this->config['enabled']){
             return false;
         }
 
