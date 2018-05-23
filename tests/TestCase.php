@@ -31,8 +31,7 @@ abstract class TestCase extends BaseTestCase
 
         $ding = new DingTalk($config);
         $this->ding = $ding;
-        sleep(5);
-
+        sleep(10);
 
     }
 
