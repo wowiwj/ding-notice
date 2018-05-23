@@ -11,14 +11,31 @@ use GuzzleHttp\Client;
 
 class DingTalkService
 {
+    /**
+     * @var string
+     */
     protected $accessToken = "";
+    /**
+     * @var string
+     */
     protected $hookUrl = "https://oapi.dingtalk.com/robot/send";
 
     /**
      * @var Message
      */
     protected $message;
+    /**
+     * @var array
+     */
+    protected $mobiles = [];
+    /**
+     * @var bool
+     */
+    protected $atAll = false;
 
+    /**
+     * DingTalkService constructor.
+     */
     public function __construct()
     {
         $this->setTextMessage('null');
@@ -33,44 +50,101 @@ class DingTalkService
         $this->message = $message;
     }
 
+    /**
+     * @return array
+     */
     public function getMessage(){
         return $this->message->getMessage();
     }
 
+    /**
+     * @param array $mobiles
+     * @param bool $atAll
+     */
+    public function setAt($mobiles = [], $atAll = false){
+        $this->mobiles = $mobiles;
+        $this->atAll = $atAll;
+        if ($this->message){
+            $this->message->sendAt($mobiles,$atAll);
+        }
+    }
 
+
+    /**
+     *
+     */
     public function setAccessToken(){
         $this->accessToken = config('ding.token');
     }
 
+    /**
+     * @return string
+     */
     public function getRobotUrl(){
         return $this->hookUrl . "?access_token={$this->accessToken}";
     }
 
 
+    /**
+     * @param $content
+     * @return $this
+     */
     public function setTextMessage($content){
         $this->message = new Text($content);
+        $this->message->sendAt($this->mobiles,$this->atAll);
         return $this;
     }
 
-    public function setLinkMessage($title,$text,$messageUrl,$picUrl = ''){
+    /**
+     * @param $title
+     * @param $text
+     * @param $messageUrl
+     * @param string $picUrl
+     * @return $this
+     */
+    public function setLinkMessage($title, $text, $messageUrl, $picUrl = ''){
         $this->message = new Link($title,$text,$messageUrl,$picUrl);
+        $this->message->sendAt($this->mobiles,$this->atAll);
         return $this;
     }
 
-    public function setMarkdownMessage($title,$text){
-        $this->message = new Markdown($title,$text);
+    /**
+     * @param $title
+     * @param $text
+     * @return $this
+     */
+    public function setMarkdownMessage($title, $markdown){
+        $this->message = new Markdown($title,$markdown);
+        $this->message->sendAt($this->mobiles,$this->atAll);
         return $this;
     }
 
 
-    public function setActionCardMessage($title, $text, $hideAvatar = 0, $btnOrientation = 0){
-        return new ActionCard($this, $title, $text, $hideAvatar, $btnOrientation);
+    /**
+     * @param $title
+     * @param $text
+     * @param int $hideAvatar
+     * @param int $btnOrientation
+     * @return ActionCard|Message
+     */
+    public function setActionCardMessage($title, $markdown, $hideAvatar = 0, $btnOrientation = 0){
+        $this->message = new ActionCard($this, $title, $markdown, $hideAvatar, $btnOrientation);
+        $this->message->sendAt($this->mobiles,$this->atAll);
+        return $this->message;
     }
 
+    /**
+     * @return FeedCard|Message
+     */
     public function setFeedCardMessage(){
-        return new FeedCard($this);
+        $this->message = new FeedCard($this);
+        $this->message->sendAt($this->mobiles,$this->atAll);
+        return $this->message;
     }
 
+    /**
+     * @return bool|string
+     */
     public function send(){
         if (! config('ding.enabled')){
             return false;

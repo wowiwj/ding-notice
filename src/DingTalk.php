@@ -27,14 +27,14 @@ class DingTalk
             ->send();
     }
 
-    public function action(){
+    public function action($title,$text){
         return $this->dingTalkService
-            ->setActionCardMessage('','');
+            ->setActionCardMessage($title,$text);
     }
 
     public function at($mobiles = [],$atAll = false){
         $this->dingTalkService
-            ->sendAt($mobiles,$atAll);
+            ->setAt($mobiles,$atAll);
         return $this;
     }
 
@@ -44,15 +44,15 @@ class DingTalk
             ->send();
     }
 
-    public function markdown($title,$text){
+    public function markdown($title,$markdown){
         return $this->dingTalkService
-            ->setMarkdownMessage($title,$text)
+            ->setMarkdownMessage($title,$markdown)
             ->send();
     }
 
-    public function actionCard($title, $text, $hideAvatar = 0, $btnOrientation = 0){
+    public function actionCard($title, $markdown, $hideAvatar = 0, $btnOrientation = 0){
         return $this->dingTalkService
-            ->setActionCardMessage($title,$text,$hideAvatar,$btnOrientation);
+            ->setActionCardMessage($title,$markdown,$hideAvatar,$btnOrientation);
     }
 
     public function feed(){

@@ -4,17 +4,17 @@ namespace DingNotice\Messages;
 
 class Markdown extends Message
 {
-    public function __construct($title,$text)
+    public function __construct($title,$markdown)
     {
-        $this->setMessage($title,$text);
+        $this->setMessage($title,$markdown);
     }
 
-    public function setMessage($title,$text){
+    public function setMessage($title,$markdown){
         $this->message  = [
             'msgtype' => 'markdown',
             'markdown' => [
                 'title' => $title,
-                'text' => $text
+                'text' => $markdown
             ]
         ];
     }

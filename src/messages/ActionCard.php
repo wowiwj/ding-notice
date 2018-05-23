@@ -9,18 +9,18 @@ class ActionCard extends Message
 
     protected $service;
 
-    public function __construct(DingTalkService $service,$title, $text, $hideAvatar = 0, $btnOrientation = 0)
+    public function __construct(DingTalkService $service,$title, $markdown, $hideAvatar = 0, $btnOrientation = 0)
     {
         $this->service = $service;
-        $this->setMessage($title,$text,$hideAvatar,$btnOrientation);
+        $this->setMessage($title,$markdown,$hideAvatar,$btnOrientation);
     }
 
-    public function setMessage($title, $text, $hideAvatar = 0, $btnOrientation = 0){
+    public function setMessage($title, $markdown, $hideAvatar = 0, $btnOrientation = 0){
         $this->message = [
             'msgtype' => 'actionCard',
             'actionCard' => [
                 'title' => $title,
-                'text' => $text,
+                'text' => $markdown,
                 'hideAvatar' => $hideAvatar,
                 'btnOrientation' => $btnOrientation
             ]
