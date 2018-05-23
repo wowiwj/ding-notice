@@ -18,7 +18,6 @@ class DingTalk
 
 
     public function text($content = ''){
-        dd('in');
         return $this->dingTalkService
             ->setTextMessage($content)
             ->send();

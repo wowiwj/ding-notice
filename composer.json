@@ -19,7 +19,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "DingNotice\\Tests\\": "tests"
+            "DingNotice\\Tests\\": "tests",
+            "DingNotice\\Messages\\": "src/messages/"
         }
     },
     "extra": {

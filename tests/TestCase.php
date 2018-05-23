@@ -20,7 +20,8 @@ abstract class TestCase extends BaseTestCase
         $config = [];
         $config['enabled'] = true;
         $config['token'] = $token;
-        $ding = new DingTalk($token);
+
+        $ding = new DingTalk($config);
         $this->ding = $ding;
 
     }
