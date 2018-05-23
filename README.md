@@ -163,7 +163,7 @@ or
 ding()->with('other')->text('我就是我, xxx 是不一样的烟火');
 ```
 
-通过其他机器人发送消息
+### 通过其他机器人发送其他类型消息
 ```php
 ding()->with('other')->markdown($title,$markdown);
 
