@@ -64,28 +64,31 @@ ding()->at(["13888888888"],true)
 ## 发送链接类型的消息
 
 ```php
-ding()->link('自定义机器人协议',
-"群机器人是钉钉群的高级扩展...",
-"https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.Rqyvqo&treeId=257&articleId=105735&docType=1",
-"http://www.baidu.com/666.jpg"
-)
+ 
+$title = "自定义机器人协议";
+$text = "群机器人是钉钉群的高级扩展功能。群机器人可以将第三方服务的信息聚合到群聊中，实现自动化的信息同步。例如：通过聚合GitHub，GitLab等源码管理服务，实现源码更新同步；通过聚合Trello，JIRA等项目协调服务，实现项目信息同步。不仅如此，群机器人支持Webhook协议的自定义接入，支持更多可能性，例如：你可将运维报警提醒通过自定义机器人聚合到钉钉群。";
+$picUrl = "";
+$messageUrl = "https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.Rqyvqo&treeId=257&articleId=105735&docType=1";
+
+ding()->link($title,$text,$messageUrl,$picUrl)
 ```
 
 ## 发送markdown类型的消息
 
 ```php
-ding()->markdown('杭州天气',"#### 杭州天气  \n ".
-                            "> 9度，@1825718XXXX 西北风1级，空气良89，相对温度73%\n\n ".
-                            "> ![screenshot](http://i01.lw.aliimg.com/media/lALPBbCc1ZhJGIvNAkzNBLA_1200_588.png)\n".
-                            "> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) ")
+$title = '杭州天气';
+$markdown = "#### 杭州天气  \n ".
+            "> 9度，@1825718XXXX 西北风1级，空气良89，相对温度73%\n\n ".
+            "> ![screenshot](http://i01.lw.aliimg.com/media/lALPBbCc1ZhJGIvNAkzNBLA_1200_588.png)\n".
+            "> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) ";
+            
+ding()->markdown($title,$markdown);
 ```
 or
-```php
+
+```php                                        
 ding()->at([],true)
-    ->markdown('杭州天气',"#### 杭州天气  \n ".
-                            "> 9度，@1825718XXXX 西北风1级，空气良89，相对温度73%\n\n ".
-                            "> ![screenshot](http://i01.lw.aliimg.com/media/lALPBbCc1ZhJGIvNAkzNBLA_1200_588.png)\n".
-                            "> ###### 10点20分发布 [天气](http://www.thinkpage.cn/) ")
+    ->markdown($title,$markdown)
 ```
 
 ## 发送Action类型的消息
@@ -113,10 +116,11 @@ ding()->actionCard($title,$text,1)
 ## 发送Feed类型的消息
 
 ```php
-
+$messageUrl = "https://mp.weixin.qq.com/s?__biz=MzA4NjMwMTA2Ng==&mid=2650316842&idx=1&sn=60da3ea2b29f1dcc43a7c8e4a7c97a16&scene=2&srcid=09189AnRJEdIiWVaKltFzNTw&from=timeline&isappinstalled=0&key=&ascene=2&uin=&devicetype=android-23&version=26031933&nettype=WIFI";
+$picUrl = "https://www.dingtalk.com";
 ding()->feed()
-    ->addLinks('时代的火车向前开',$this->messageUrl,$this->picUrl)
-    ->addLinks('时代的火车向前开2',$this->messageUrl,$this->picUrl)
+    ->addLinks('时代的火车向前开',$messageUrl,$picUrl)
+    ->addLinks('时代的火车向前开2',$messageUrl,$picUrl)
     ->send();
 ```
 
