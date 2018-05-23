@@ -9,7 +9,7 @@
 ding-notie 是一款钉钉机器人消息发送的Laravel扩展，您可以通过此扩展便捷的发送钉钉消息，进行监控和提醒操作
 
 # 要求
-- php版本:》=7.0
+- php版本:>=7.0
 - laravel版本: Laravel5.5+
 
 # 安装
@@ -39,14 +39,17 @@ DING_ENABLED=true
 ```php
 DING_TOKEN=you-push-token
 ```
+
+
 ### 钉钉发送的超时时间
 - (可选) 默认为2.0秒
 ```php
 DING_TIME_OUT=
 ```
+
 # 使用
 
-## 纯文字消息发送文字
+## 发送纯文字消息
 ```php
 ding('我就是我, xxx 是不一样的烟火')
 ```
@@ -62,6 +65,7 @@ ding()->at(["13888888888"],true)
 ```
 
 ## 发送链接类型的消息
+
 
 ```php
  
@@ -123,6 +127,9 @@ ding()->feed()
     ->addLinks('时代的火车向前开2',$messageUrl,$picUrl)
     ->send();
 ```
+
+- 效果
+![file](https://lccdn.phphub.org/uploads/images/201805/23/6932/q3nLCOPbRj.png?imageView2/2/w/1240/h/0)
 
 
 
