@@ -1,6 +1,13 @@
 # 钉钉推送机器人消息发送laravel扩展包
 
+<p align="center">
 [![Build Status](https://travis-ci.org/wowiwj/ding-notice.svg?branch=master)](https://travis-ci.org/wowiwj/ding-notice)
+[![Latest Stable Version](https://poser.pugx.org/wangju/ding-notice/v/stable)](https://packagist.org/packages/wangju/ding-notice)
+[![Total Downloads](https://poser.pugx.org/wangju/ding-notice/downloads)](https://packagist.org/packages/wangju/ding-notice)
+[![Latest Unstable Version](https://poser.pugx.org/wangju/ding-notice/v/unstable)](https://packagist.org/packages/wangju/ding-notice)
+[![License](https://poser.pugx.org/wangju/ding-notice/license)](https://packagist.org/packages/wangju/ding-notice)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)   
+</p>
 
 ### 请先阅读 [钉钉官方文档](https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.NVWSPm&treeId=257&articleId=105735&docType=1#)
 
