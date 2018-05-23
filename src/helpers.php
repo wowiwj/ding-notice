@@ -18,7 +18,8 @@ if (!function_exists('ding')){
         }
 
         if (is_string($arguments[0])) {
-            return $dingTalk->text($arguments[0]);
+            $robot = $arguments[1] ?? 'default';
+            return $dingTalk->with($robot)->text($arguments[0]);
         }
 
     }

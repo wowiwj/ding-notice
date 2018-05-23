@@ -40,6 +40,31 @@ DING_ENABLED=true
 DING_TOKEN=you-push-token
 ```
 
+### 多机器人配置
+如果想要添加多个机器人，则在`ding.php`当中添加机器人名字和相关的配置即可
+
+```php
+return [
+
+    'default' => [
+        'enabled' => env('DING_ENABLED',true),
+
+        'token' => env('DING_TOKEN',''),
+
+        'timeout' => env('DING_TIME_OUT',2.0)
+    ],
+
+    'other' => [
+        'enabled' => env('OTHER_DING_ENABLED',true),
+
+        'token' => env('OTHER_DING_TOKEN',''),
+
+        'timeout' => env('OTHER_DING_TIME_OUT',2.0)
+    ]
+
+];
+```
+
 
 ### 钉钉发送的超时时间
 - (可选) 默认为2.0秒
@@ -127,6 +152,29 @@ ding()->feed()
     ->addLinks('时代的火车向前开2',$messageUrl,$picUrl)
     ->send();
 ```
+## 多机器人消息发送
+
+### 发送纯文字消息
+```php
+ding('我就是我, xxx 是不一样的烟火','other')
+```
+or
+```php
+ding()->with('other')->text('我就是我, xxx 是不一样的烟火');
+```
+
+通过其他机器人发送消息
+```php
+ding()->with('other')->markdown($title,$markdown);
+
+ding()->with('other')
+       ->feed()
+       ->addLinks('时代的火车向前开',$messageUrl,$picUrl)
+       ->addLinks('时代的火车向前开2',$messageUrl,$picUrl)
+       ->send();
+```
+enjoy :)
+
 
 - 效果
 ![file](https://lccdn.phphub.org/uploads/images/201805/23/6932/q3nLCOPbRj.png?imageView2/2/w/1240/h/0)
