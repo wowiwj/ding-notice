@@ -154,7 +154,7 @@ class DingTalkService
         }
 
         $client = new Client([
-            'timeout'  => 2.0,
+            'timeout'  => $this->config['timeout'] ?? 2.0,
         ]);
 
         $request = $client->post($this->getRobotUrl(),[

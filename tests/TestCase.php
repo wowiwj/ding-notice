@@ -18,6 +18,7 @@ abstract class TestCase extends BaseTestCase
         $token = 'b650efc8cda1c8bf0f7c2aa54803e7ed120b1e26420deff8ae9086791f383ecc';
         $this->testUser = '18888888888';
         $config = [];
+        $config['timeout'] = 10.0;
         $config['enabled'] = true;
         $config['token'] = $token;
 
