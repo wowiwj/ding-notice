@@ -5,6 +5,8 @@
 [![Total Downloads](https://poser.pugx.org/wangju/ding-notice/downloads)](https://packagist.org/packages/wangju/ding-notice)
 [![Latest Unstable Version](https://poser.pugx.org/wangju/ding-notice/v/unstable)](https://packagist.org/packages/wangju/ding-notice)
 [![License](https://poser.pugx.org/wangju/ding-notice/license)](https://packagist.org/packages/wangju/ding-notice)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wowiwj/ding-notice/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wowiwj/ding-notice/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/wowiwj/ding-notice/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)   
 
 
