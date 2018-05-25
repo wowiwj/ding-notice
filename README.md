@@ -20,12 +20,28 @@ ding-notie 是一款钉钉机器人消息发送的Laravel扩展，您可以通�
 - php版本:>=7.0
 - laravel版本: Laravel5.5+
 
+
 # 安装
 
 ```php
 composer require wangju/ding-notice
 
 ```
+
+# 在非laravel项目中使用
+```php
+$ding = new \DingNotice\DingTalk([
+    "default" => [
+        'enabled' => true,
+        'token' => "you-push-token",
+        'timeout' => 2.0
+    ]
+]);
+
+$ding->text('我就是我, xxx 是不一样的烟火');
+```
+
+# 在laravel项目中使用
 
 安装成功后执行
 ```php
