@@ -10,7 +10,8 @@ return [
         // 机器人的access_token
         'token' => env('DING_TOKEN',''),
         // 钉钉请求的超时时间
-        'timeout' => env('DING_TIME_OUT',2.0)
+        'timeout' => env('DING_TIME_OUT',2.0),
+        'ssl_verify' => env('DING_SSL_VERIFY',true)
     ],
 
     'other' => [
@@ -18,7 +19,9 @@ return [
 
         'token' => env('OTHER_DING_TOKEN',''),
 
-        'timeout' => env('OTHER_DING_TIME_OUT',2.0)
+        'timeout' => env('OTHER_DING_TIME_OUT',2.0),
+
+        'ssl_verify' => env('DING_SSL_VERIFY',true)
     ]
 
 ];

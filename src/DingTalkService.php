@@ -161,7 +161,8 @@ class DingTalkService
             'body' => json_encode($this->message->getBody()),
             'headers' => [
                 'Content-Type' => 'application/json',
-            ]
+            ],
+            'verify' => $this->config['ssl_verify'] ?? true,
         ]);
 
         $result = $request->getBody()->getContents();
