@@ -3,6 +3,7 @@
 namespace DingNotice\Tests;
 
 use DingNotice\DingTalk;
+use DingNotice\SendClient;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -12,27 +13,53 @@ abstract class TestCase extends BaseTestCase
      */
     protected $ding;
     protected $testUser;
+    protected $config;
 
     public function setUp(){
 
-        $token = 'b650efc8cda1c8bf0f7c2aa54803e7ed120b1e26420deff8ae9086791f383ecc';
+        $token = 'f80be582aafed07cfced271c333c7ba7f46b873ebf7168e570919296b8062bad';
         $this->testUser = '18888888888';
 
         $robot1['timeout'] = 30.0;
         $robot1['enabled'] = true;
         $robot1['token'] = $token;
 
-        $robot2['timeout'] = 30.0;
-        $robot2['enabled'] = true;
-        $robot2['token'] = "bb0ba5d6ae464ea038374abcc683f3306d9c8177041936c5a2d79adf3b066c8b";
-
         $config['default'] = $robot1;
-        $config['other'] = $robot2;
 
-        $ding = new DingTalk($config);
-        $this->ding = $ding;
-        sleep(10);
+        $this->config = $config;
+        $this->ding = $this->mockDingClient();
+    }
 
+    /**
+     * mock ding client
+     * @param null $client
+     * @return DingTalk
+     * @author wangju 2019-05-17 20:53
+     */
+    protected function mockDingClient($client = null)
+    {
+        $client = \Mockery::mock(SendClient::class);
+        $client->shouldReceive('send')->withArgs(function ($arg) {
+            $messageType = $arg['msgtype'];
+
+            if (!in_array($messageType, ['text', 'actionCard', 'feedCard', 'link', 'markdown'])) {
+                return false;
+            }
+            if (!array_key_exists($messageType, $arg)) {
+                return false;
+            }
+            return $this->matchContent($arg[$messageType]);
+        })->andReturn([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ]);
+        $ding = new DingTalk($this->config, $client);
+        return $ding;
+    }
+
+    protected function matchContent($content)
+    {
+        return true;
     }
 
 }

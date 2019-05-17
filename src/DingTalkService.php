@@ -1,6 +1,7 @@
 <?php
 
 namespace DingNotice;
+
 use DingNotice\Messages\ActionCard;
 use DingNotice\Messages\FeedCard;
 use DingNotice\Messages\Link;
@@ -13,14 +14,6 @@ class DingTalkService
 {
 
     protected $config;
-    /**
-     * @var string
-     */
-    protected $accessToken = "";
-    /**
-     * @var string
-     */
-    protected $hookUrl = "https://oapi.dingtalk.com/robot/send";
 
     /**
      * @var Message
@@ -36,13 +29,26 @@ class DingTalkService
     protected $atAll = false;
 
     /**
-     * DingTalkService constructor.
+     * @var SendClient
      */
-    public function __construct($config)
+    protected $client;
+
+    /**
+     * DingTalkService constructor.
+     * @param $config
+     * @param null $client
+     */
+    public function __construct($config, SendClient $client = null)
     {
         $this->config = $config;
         $this->setTextMessage('null');
-        $this->setAccessToken();
+
+        if ($client != null) {
+            $this->client = $client;
+            return;
+        }
+        $this->client = $this->createClient($config);
+
     }
 
     /**
@@ -56,7 +62,8 @@ class DingTalkService
     /**
      * @return array
      */
-    public function getMessage(){
+    public function getMessage()
+    {
         return $this->message->getMessage();
     }
 
@@ -64,27 +71,24 @@ class DingTalkService
      * @param array $mobiles
      * @param bool $atAll
      */
-    public function setAt($mobiles = [], $atAll = false){
+    public function setAt($mobiles = [], $atAll = false)
+    {
         $this->mobiles = $mobiles;
         $this->atAll = $atAll;
-        if ($this->message){
-            $this->message->sendAt($mobiles,$atAll);
+        if ($this->message) {
+            $this->message->sendAt($mobiles, $atAll);
         }
     }
 
-
     /**
-     *
+     * create a guzzle client
+     * @return HttpClient
+     * @author wangju 2019-05-17 20:25
      */
-    public function setAccessToken(){
-        $this->accessToken = $this->config['token'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getRobotUrl(){
-        return $this->hookUrl . "?access_token={$this->accessToken}";
+    protected function createClient($config)
+    {
+        $client = new HttpClient($config);
+        return $client;
     }
 
 
@@ -92,9 +96,10 @@ class DingTalkService
      * @param $content
      * @return $this
      */
-    public function setTextMessage($content){
+    public function setTextMessage($content)
+    {
         $this->message = new Text($content);
-        $this->message->sendAt($this->mobiles,$this->atAll);
+        $this->message->sendAt($this->mobiles, $this->atAll);
         return $this;
     }
 
@@ -105,9 +110,10 @@ class DingTalkService
      * @param string $picUrl
      * @return $this
      */
-    public function setLinkMessage($title, $text, $messageUrl, $picUrl = ''){
-        $this->message = new Link($title,$text,$messageUrl,$picUrl);
-        $this->message->sendAt($this->mobiles,$this->atAll);
+    public function setLinkMessage($title, $text, $messageUrl, $picUrl = '')
+    {
+        $this->message = new Link($title, $text, $messageUrl, $picUrl);
+        $this->message->sendAt($this->mobiles, $this->atAll);
         return $this;
     }
 
@@ -116,9 +122,10 @@ class DingTalkService
      * @param $text
      * @return $this
      */
-    public function setMarkdownMessage($title, $markdown){
-        $this->message = new Markdown($title,$markdown);
-        $this->message->sendAt($this->mobiles,$this->atAll);
+    public function setMarkdownMessage($title, $markdown)
+    {
+        $this->message = new Markdown($title, $markdown);
+        $this->message->sendAt($this->mobiles, $this->atAll);
         return $this;
     }
 
@@ -130,43 +137,32 @@ class DingTalkService
      * @param int $btnOrientation
      * @return ActionCard|Message
      */
-    public function setActionCardMessage($title, $markdown, $hideAvatar = 0, $btnOrientation = 0){
+    public function setActionCardMessage($title, $markdown, $hideAvatar = 0, $btnOrientation = 0)
+    {
         $this->message = new ActionCard($this, $title, $markdown, $hideAvatar, $btnOrientation);
-        $this->message->sendAt($this->mobiles,$this->atAll);
+        $this->message->sendAt($this->mobiles, $this->atAll);
         return $this->message;
     }
 
     /**
      * @return FeedCard|Message
      */
-    public function setFeedCardMessage(){
+    public function setFeedCardMessage()
+    {
         $this->message = new FeedCard($this);
-        $this->message->sendAt($this->mobiles,$this->atAll);
+        $this->message->sendAt($this->mobiles, $this->atAll);
         return $this->message;
     }
 
     /**
-     * @return bool|string
+     * @return bool|array
      */
-    public function send(){
-        if (! $this->config['enabled']){
+    public function send()
+    {
+        if (!$this->config['enabled']) {
             return false;
         }
-
-        $client = new Client([
-            'timeout'  => $this->config['timeout'] ?? 2.0,
-        ]);
-
-        $request = $client->post($this->getRobotUrl(),[
-            'body' => json_encode($this->message->getBody()),
-            'headers' => [
-                'Content-Type' => 'application/json',
-            ],
-            'verify' => $this->config['ssl_verify'] ?? true,
-        ]);
-
-        $result = $request->getBody()->getContents();
-        return $result;
+        return $this->client->send($this->message->getBody());
     }
 
 }

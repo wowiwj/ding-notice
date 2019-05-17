@@ -18,13 +18,17 @@ class DingTalk
      */
     protected $dingTalkService;
 
+    protected $client;
+
     /**
      * DingTalk constructor.
      * @param $config
+     * @param SendClient $client
      */
-    public function __construct($config)
+    public function __construct($config,$client = null)
     {
         $this->config = $config;
+        $this->client = $client;
         $this->with();
     }
 
@@ -34,7 +38,7 @@ class DingTalk
      */
     public function with($robot = 'default'){
         $this->robot = $robot;
-        $this->dingTalkService = new DingTalkService($this->config[$robot]);
+        $this->dingTalkService = new DingTalkService($this->config[$robot],$this->client);
         return $this;
     }
 

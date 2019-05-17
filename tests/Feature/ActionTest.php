@@ -20,6 +20,17 @@ class ActionTest extends TestCase
     }
 
     /**
+     * available content to set
+     * @param $content
+     * @return bool
+     * @author wangju 2019-05-17 21:50
+     */
+    protected function matchContent($content)
+    {
+        return $content['title'] && $content['text'];
+    }
+
+    /**
      * A basic test example.
      *
      * @return void
@@ -31,7 +42,10 @@ class ActionTest extends TestCase
             ->actionCard($this->title,$this->text,1)
             ->single("阅读全文","https://www.dingtalk.com/")
             ->send();
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}",$result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 
     public function testPushActionBtnsMessageAtAllUser(){
@@ -40,6 +54,9 @@ class ActionTest extends TestCase
             ->addButtons("内容不错","https://www.dingtalk.com/")
             ->addButtons("不感兴趣","https://www.dingtalk.com/")
             ->send();
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}",$result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 }

@@ -21,6 +21,17 @@ class LinkTest extends TestCase
     }
 
     /**
+     * available content to set
+     * @param $content
+     * @return bool
+     * @author wangju 2019-05-17 21:50
+     */
+    protected function matchContent($content)
+    {
+        return $content['text'] && $content['title'] && $content['messageUrl'];
+    }
+
+    /**
      * A basic test example.
      *
      * @return void
@@ -28,7 +39,10 @@ class LinkTest extends TestCase
     public function testPushLinkMessage()
     {
         $result = $this->ding->link($this->title,$this->text,$this->messageUrl,$this->picUrl);
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}", $result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 
 }

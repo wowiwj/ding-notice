@@ -20,6 +20,17 @@ class MarkDownTest extends TestCase
     }
 
     /**
+     * available content to set
+     * @param $content
+     * @return bool
+     * @author wangju 2019-05-17 21:50
+     */
+    protected function matchContent($content)
+    {
+        return $content['title'] && $content['text'];
+    }
+
+    /**
      * A basic test example.
      *
      * @return void
@@ -27,13 +38,19 @@ class MarkDownTest extends TestCase
     public function testPushMarkdownMessage()
     {
         $result =$this->ding->markdown($this->title,$this->markdown);
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}",$result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 
     public function testPushMarkdownMessageAtAllUser(){
         $result =$this->ding
             ->at([],true)
             ->markdown($this->title,$this->markdown);
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}",$result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 }

@@ -17,6 +17,23 @@ class FeedTest extends TestCase
     }
 
     /**
+     * available content to set
+     * @param $content
+     * @return bool
+     * @author wangju 2019-05-17 21:50
+     */
+    protected function matchContent($content)
+    {
+        if (empty($content)){
+            return false;
+        }
+        return array_reduce($content,function ($carry,$item){
+            if ($carry === null) return true;
+            return $carry && $item['title'] && $item['messageURL'] && $item['picURL'];
+        });
+    }
+
+    /**
      * A basic test example.
      *
      * @return void
@@ -24,7 +41,10 @@ class FeedTest extends TestCase
     public function testPushTextMessage()
     {
         $result =$this->ding->text("我就是我,@{$this->testUser} 是不一样的烟火");
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}",$result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 
     public function testPushTextMessageAtAllUser(){
@@ -34,6 +54,9 @@ class FeedTest extends TestCase
             ->addLinks('时代的火车向前开2',$this->messageUrl,$this->picUrl)
             ->send();
 
-        $this->assertSame("{\"errcode\":0,\"errmsg\":\"ok\"}",$result);
+        $this->assertSame([
+            'errmsg' => 'ok',
+            'errcode' => 0
+        ],$result);
     }
 }
