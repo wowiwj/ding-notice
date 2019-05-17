@@ -10,7 +10,7 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badge/)   
 
 
-### 请先阅读 [钉钉官方文档](https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.NVWSPm&treeId=257&articleId=105735&docType=1#)
+### 请先阅读 [钉钉官方文档](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq)
 
 
 # 介绍
@@ -34,7 +34,8 @@ $ding = new \DingNotice\DingTalk([
     "default" => [
         'enabled' => true,
         'token' => "you-push-token",
-        'timeout' => 2.0
+        'timeout' => 2.0,
+        'ssl_verify' => true
     ]
 ]);
 
@@ -64,6 +65,7 @@ DING_ENABLED=true
 DING_TOKEN=you-push-token
 ```
 
+
 ### 多机器人配置
 如果想要添加多个机器人，则在`ding.php`当中添加机器人名字和相关的配置即可
 
@@ -75,7 +77,9 @@ return [
 
         'token' => env('DING_TOKEN',''),
 
-        'timeout' => env('DING_TIME_OUT',2.0)
+        'timeout' => env('DING_TIME_OUT',2.0),
+        
+        'ssl_verify' => env('DING_SSL_VERIFY',true)
     ],
 
     'other' => [
@@ -83,7 +87,9 @@ return [
 
         'token' => env('OTHER_DING_TOKEN',''),
 
-        'timeout' => env('OTHER_DING_TIME_OUT',2.0)
+        'timeout' => env('OTHER_DING_TIME_OUT',2.0),
+        
+        'ssl_verify' => env('DING_SSL_VERIFY',true)
     ]
 
 ];
@@ -94,6 +100,13 @@ return [
 - (可选) 默认为2.0秒
 ```php
 DING_TIME_OUT=
+```
+
+### 是否开启SSL验证
+
+- (可选)默认为开启，关闭请手动设置
+```php
+DING_SSL_VERIFY=false
 ```
 
 # 使用
