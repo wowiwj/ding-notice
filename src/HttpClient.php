@@ -84,6 +84,6 @@ class HttpClient implements SendClient
         ]);
 
         $result = $request->getBody()->getContents();
-        return json_decode($result, true);
+        return json_decode($result, true) ?? [];
     }
 }
