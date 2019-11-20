@@ -68,7 +68,14 @@ class HttpClient implements SendClient
      */
     public function send($params): array
     {
-        $request = $this->client->post($this->getRobotUrl(), [
+        $url = $this->getRobotUrl();
+        if (isset($this->config['secret'])) {
+            $timestamp = time() . sprintf('%03d', rand(1, 999));
+            $sign = hash_hmac('sha256', $timestamp . "\n" . $this->config['secret'], $this->config['secret'], true);
+            $url = $url . '&timestamp=' . $timestamp . '&sign=' . urlencode(base64_encode($sign));
+        }
+
+        $request = $this->client->post($url, [
             'body' => json_encode($params),
             'headers' => [
                 'Content-Type' => 'application/json',
