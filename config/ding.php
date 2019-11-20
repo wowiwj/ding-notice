@@ -11,7 +11,10 @@ return [
         'token' => env('DING_TOKEN',''),
         // 钉钉请求的超时时间
         'timeout' => env('DING_TIME_OUT',2.0),
-        'ssl_verify' => env('DING_SSL_VERIFY',true)
+        // 是否开启ss认证
+        'ssl_verify' => env('DING_SSL_VERIFY',true),
+        // 开启安全配置
+        'secret' => env('DING_SECRET',true),
     ],
 
     'other' => [
@@ -21,7 +24,8 @@ return [
 
         'timeout' => env('OTHER_DING_TIME_OUT',2.0),
 
-        'ssl_verify' => env('DING_SSL_VERIFY',true)
-    ]
+        'ssl_verify' => env('DING_SSL_VERIFY',true),
 
+        'secret' => env('DING_SECRET',true),
+    ]
 ];

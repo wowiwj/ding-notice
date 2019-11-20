@@ -55,8 +55,16 @@ class HttpClient implements SendClient
     /**
      * @return string
      */
-    public function getRobotUrl(){
-        return $this->hookUrl . "?access_token={$this->accessToken}";
+    public function getRobotUrl()
+    {
+        $query['access_token'] = $this->accessToken;
+        if (isset($this->config['secret']) && $secret = $this->config['secret']) {
+            $timestamp = time() . sprintf('%03d', rand(1, 999));
+            $sign      = hash_hmac('sha256', $timestamp . "\n" . $secret, $secret, true);
+            $query['timestamp'] = $timestamp;
+            $query['sign'] = urlencode(base64_encode($sign));
+        }
+        return $this->hookUrl . "?" . http_build_query($query);
     }
 
     /**
@@ -68,14 +76,7 @@ class HttpClient implements SendClient
      */
     public function send($params): array
     {
-        $url = $this->getRobotUrl();
-        if (isset($this->config['secret'])) {
-            $timestamp = time() . sprintf('%03d', rand(1, 999));
-            $sign = hash_hmac('sha256', $timestamp . "\n" . $this->config['secret'], $this->config['secret'], true);
-            $url = $url . '&timestamp=' . $timestamp . '&sign=' . urlencode(base64_encode($sign));
-        }
-
-        $request = $this->client->post($url, [
+        $request = $this->client->post($this->getRobotUrl(), [
             'body' => json_encode($params),
             'headers' => [
                 'Content-Type' => 'application/json',
