@@ -35,7 +35,8 @@ $ding = new \DingNotice\DingTalk([
         'enabled' => true,
         'token' => "you-push-token",
         'timeout' => 2.0,
-        'ssl_verify' => true
+        'ssl_verify' => true,
+        'secret' => '',
     ]
 ]);
 
@@ -108,6 +109,13 @@ DING_TIME_OUT=
 ```php
 DING_SSL_VERIFY=false
 ```
+### 开启钉钉安全配置
+
+- (可选)默认为无
+```php
+DING_SECRET=
+```
+
 
 # 使用
 
