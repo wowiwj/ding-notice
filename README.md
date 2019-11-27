@@ -82,7 +82,7 @@ return [
         
         'ssl_verify' => env('DING_SSL_VERIFY',true),
         
-        secret' => env('DING_SECRET',true), 
+        'secret' => env('DING_SECRET',true), 
     ],
 
     'other' => [
@@ -94,7 +94,7 @@ return [
         
         'ssl_verify' => env('DING_SSL_VERIFY',true),
         
-        secret' => env('OTHER_DING_SECRET',true), 
+        'secret' => env('OTHER_DING_SECRET',true), 
     ]
 
 ];
