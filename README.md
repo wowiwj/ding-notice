@@ -80,7 +80,9 @@ return [
 
         'timeout' => env('DING_TIME_OUT',2.0),
         
-        'ssl_verify' => env('DING_SSL_VERIFY',true)
+        'ssl_verify' => env('DING_SSL_VERIFY',true),
+        
+        secret' => env('DING_SECRET',true), 
     ],
 
     'other' => [
@@ -90,7 +92,9 @@ return [
 
         'timeout' => env('OTHER_DING_TIME_OUT',2.0),
         
-        'ssl_verify' => env('DING_SSL_VERIFY',true)
+        'ssl_verify' => env('DING_SSL_VERIFY',true),
+        
+        secret' => env('OTHER_DING_SECRET',true), 
     ]
 
 ];
