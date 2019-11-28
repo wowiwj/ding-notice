@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
         $robot1['timeout'] = 30.0;
         $robot1['enabled'] = true;
         $robot1['token'] = $token;
-
+        $robot1['secret'] = 'SECcfc6343d91e588d1f83dcf6d725a0208f79607726560ca2be135b437c62523b5';
         $config['default'] = $robot1;
 
         $this->config = $config;

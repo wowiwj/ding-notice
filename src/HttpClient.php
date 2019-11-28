@@ -62,7 +62,7 @@ class HttpClient implements SendClient
             $timestamp = time() . sprintf('%03d', rand(1, 999));
             $sign      = hash_hmac('sha256', $timestamp . "\n" . $secret, $secret, true);
             $query['timestamp'] = $timestamp;
-            $query['sign'] = urlencode(base64_encode($sign));
+            $query['sign'] = base64_encode($sign);
         }
         return $this->hookUrl . "?" . http_build_query($query);
     }
